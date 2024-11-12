@@ -1,0 +1,34 @@
+﻿<Window x:Class="NetworkMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:charting="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="Network Monitor" Height="500" Width="800">
+    <Grid>
+        <!-- DataGrid для отображения информации о серверах -->
+        <DataGrid Name="ServersDataGrid" Margin="10,10,10,200" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="IP-адрес" Binding="{Binding IpAddress}" Width="1*"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="1*"/>
+                <DataGridTextColumn Header="Время отклика" Binding="{Binding LastResponseTime}" Width="1*"/>
+                <DataGridTextColumn Header="Последнее обновление" Binding="{Binding LastChecked}" Width="1*"/>
+                <DataGridTextColumn Header="Интервал (мин)" Binding="{Binding CheckInterval}" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Поля для ввода и кнопки -->
+        <TextBox Name="IpAddressTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,158" Width="150" />
+        <TextBox Name="IntervalTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,123" Width="60" />
+        <Button Name="AddServerButton" Content="Добавить сервер" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,86" Width="120" Click="AddServerButton_Click"/>
+        <Button Name="RemoveServerButton" Content="Удалить сервер" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="161,0,0,86" Width="120" Click="RemoveServerButton_Click"/>
+
+        <!-- Фильтр по состоянию -->
+        <ComboBox Name="StatusFilterComboBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,37" Width="150" SelectionChanged="StatusFilterComboBox_SelectionChanged">
+            <ComboBoxItem Content="Все" IsSelected="True"/>
+            <ComboBoxItem Content="В сети"/>
+            <ComboBoxItem Content="Не в сети"/>
+        </ComboBox>
+
+        <!-- Графическое отображение доступности -->
+        <charting:PieChart Name="NetworkAvailabilityChart" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="200" Margin="0,284,134,0"/>
+    </Grid>
+</Window>
